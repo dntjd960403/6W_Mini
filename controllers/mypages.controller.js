@@ -63,7 +63,7 @@ class MypagesController {
       }
     }
   };
-
+  // abc
   deleteMypages = async (req, res, next) => {
     const { userId, goodsId } = req.params;
 

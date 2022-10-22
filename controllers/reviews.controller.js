@@ -8,7 +8,7 @@ class ReviewsController {
     try{
     const reviews = await this.reviewsService.findAllReview();
 
-    res.status(200).reviews({ data: reviews })
+    res.status(200).json({ data: reviews })
     }catch(err){
     res.status(400).json({message: err.message})
     }

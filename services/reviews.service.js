@@ -37,8 +37,8 @@ class ReviewsService {
 
     updateReviews = async (reviewId,review) => {
 
-      await this.reviewsRepository.updateReviews(reviewId,review);
-      const updateReviewsData = await this.reviewsRepository.ReviewsById(reviewId);
+      const updateReviewsData = await this.reviewsRepository.updateReviews(reviewId,review);
+      // const updateReviewsData = await this.reviewsRepository.ReviewsById(reviewId);
 
       return {
         reviewId: updateReviewsData.null,

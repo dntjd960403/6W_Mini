@@ -11,6 +11,12 @@ class MypagesController {
     res.status(200).json({ data: mypages })
   }
 
+  getRandoms = async (req, res, next) => {
+    const random = await this.mypagesService.getRandoms();
+
+    res.status(200).json({ data: random })
+  }
+
   createMypages = async (req, res, next) => { 
 
     const { userId } = req.params;

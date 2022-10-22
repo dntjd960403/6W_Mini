@@ -1,10 +1,17 @@
 const { mypages } = require('../models');
+const { Goods } = require('../models');
 
 class MypagesRepository {
   findAllMypage = async (userId) => {
     const mypage = await mypages.findOne({where: {userId}});
 
     return mypage;
+  }
+
+  getRandoms = async (userId) => {
+    const random = await mypages.findOne({where: {userId}})
+
+    return random;
   }
   
    MypagesById = async (userId,goodsId) => {
@@ -14,9 +21,10 @@ class MypagesRepository {
 
   }
 
-  createMypages = async (userId,postsId,comment,nickname) => {
+  createMypages = async (userId,postsId,comment,nickname, r) => {
 
-    const createCommentsData = await mypages.create({ userId,postsId,comment,nickname });
+    const createCommentsData = await mypages.create({ userId,postsId,comment,nickname,r });
+
     return createCommentsData;
   }
 
@@ -29,6 +37,10 @@ class MypagesRepository {
     const deleteCommentsData = await mypages.destroy({ where: {userId,goodsId}});
 
     return deleteCommentsData;
+  }
+
+  findGoods = async (goodsId) => {
+    const findgood = await Goods.findOne({where: {goodsId}})
   }
   
 }

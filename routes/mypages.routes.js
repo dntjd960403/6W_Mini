@@ -5,9 +5,10 @@ const authMiddleware = require("../middlewares/auth-middlewares");
 const MypagesController = require("../controllers/mypages.controller")
 const mypagesController = new MypagesController();
 
-router.get("/mypage/:userId", authMiddleware, mypagesController.getMypages);
-router.post("/mypage", authMiddleware, mypagesController.createMypages);
-router.delete("/mypage/:userId/:goodsId", authMiddleware, mypagesController.deleteMypages)
+router.get("/:userId", authMiddleware, mypagesController.getMypages);
+router.get("/goods/:userId", authMiddleware, mypagesController.getRandoms)
+router.post("/", authMiddleware, mypagesController.createMypages);
+router.delete("/:userId/:goodsId", authMiddleware, mypagesController.deleteMypages)
 
 
 

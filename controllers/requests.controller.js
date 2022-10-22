@@ -16,8 +16,8 @@ class RequestsController {
 
   createRequests = async (req, res, next) => { 
     const { request } = req.body;
-    // const { userId } = res.locals.user;
-    const createRequestsData = await this.requestsService.createRequests(request);
+    const { userId } = res.locals.user;
+    const createRequestsData = await this.requestsService.createRequests(userId,request);
 
     res.status(201).json({ data: createRequestsData });
   }
@@ -34,9 +34,9 @@ class RequestsController {
     }
 
     deleteRequests = async (req, res, next) => {
-    const {reviewId} = req.params
+    const {requestId} = req.params
 
-    const removeRequests = await this.requestsService.deleteRequests(reviewId);
+    const removeRequests = await this.requestsService.deleteRequests(requestId);
 
     res.status(200).json({ data: removeRequests });
     }

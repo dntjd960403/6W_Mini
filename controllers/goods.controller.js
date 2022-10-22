@@ -2,18 +2,18 @@ const GoodsService = require('../services/goods.service');
 
 class GoodsController {
   goodsService = new GoodsService();
-
+  // 상품 목록 보기
   getGoods = async (req, res, next) => {
     try {
       const goods = await this.goodsService.findAllGoods();
       res.status(200).json({ message: goods });
     } catch (err) {
-      const message = `${req.method} ${req.originalUrl} : ${err.message}`;
-      console.log(message);
-      res.status(400).json({ message });
+      const errormessage = `${req.method} ${req.originalUrl} : ${err.errormessage}`;
+      console.log(errormessage);
+      res.status(400).json({ errormessage });
     }
   };
-
+  // 상품 생성
   createGoods = async (req, res, next) => {
     try {
       const { name, imageUrl, goodsDetail } = req.body;
@@ -34,7 +34,7 @@ class GoodsController {
       res.status(400).json({ errormessage });
     }
   };
-
+  // 상품 수정
   updateGoods = async (req, res, next) => {
     try {
       const { name, imageUrl, goodsDetail } = req.body;
@@ -58,7 +58,7 @@ class GoodsController {
       }
     }
   };
-
+  // 상품 삭제
   deleteGoods = async (req, res, next) => {
     try {
       const { goodsId } = req.params;

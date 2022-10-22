@@ -29,9 +29,9 @@ class GoodsController {
       if (err.code === -1) {
         res.status(401).send({ errorMessage: '없는 상품이요!' });
       }
-      const message = `${req.method} ${req.originalUrl} : ${err.message}`;
-      console.log(message);
-      res.status(400).json({ message });
+      const errormessage = `${req.method} ${req.originalUrl} : ${err.errormessage}`;
+      console.log(errormessage);
+      res.status(400).json({ errormessage });
     }
   };
 
@@ -52,9 +52,9 @@ class GoodsController {
       if (err.code === -1) {
         res.status(401).send({ errorMessage: '없는 상품이요!' });
       } else {
-        const message = `${req.method} ${req.originalUrl} : ${err.message}`;
-        console.log(message);
-        res.status(400).json({ message });
+        const errormessage = `${req.method} ${req.originalUrl} : ${err.errormessage}`;
+        console.log(errormessage);
+        res.status(400).json({ errormessage });
       }
     }
   };
@@ -70,9 +70,9 @@ class GoodsController {
       if (err.code === -1) {
         res.status(401).send({ errorMessage: '없는 상품이요!' });
       } else {
-        const message = `${req.method} ${req.originalUrl} : ${err.message}`;
+        const errormessage = `${req.method} ${req.originalUrl} : ${err.errormessage}`;
         console.log(message);
-        res.status(400).json({ message });
+        res.status(400).json({ errormessage });
       }
     }
   };

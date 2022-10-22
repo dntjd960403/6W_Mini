@@ -61,7 +61,7 @@ class UserController {
         .send({ errorMessage: '요청한 데이터 형식이 올바르지 않습니다.' });
     }
   };
-
+  //관리자 권한 임명
   getAdmin = async (req, res, next) => {
     try {
       const { id } = req.body;

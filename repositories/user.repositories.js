@@ -40,7 +40,7 @@ class UserRepository {
     const user = await Users.findOne({ where: { id } });
     return user;
   };
-
+  //관리자 권한 임명
   getAdmin = async (id) => {
     const getAdmin = await Users.update({ admin: null }, { where: { id } });
     console.log(getAdmin);

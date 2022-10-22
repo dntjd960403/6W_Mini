@@ -54,7 +54,7 @@ class UserServices {
     await this.userRepository.changePassword(id, email, password);
     return '비밀번호 변경이 완료되었습니다';
   };
-
+  //관리자 권한 임명
   getAdmin = async (id) => {
     await this.userRepository.getAdmin(id);
   };

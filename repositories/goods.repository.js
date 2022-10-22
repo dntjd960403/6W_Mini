@@ -4,6 +4,7 @@ class GoodsRepository {
   // 모든 상품 조회
   findAllGoods = async () => {
     const findAllGoods = await Goods.findAll({ where: {} });
+    console.log(findAllGoods.length);
     return findAllGoods;
   };
   // 상품 1개 조회

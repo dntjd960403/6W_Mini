@@ -69,7 +69,7 @@ class MypagesRepository {
 
   putPointMypages = async (userId) => {
 
-    await Users.increment({ point: 5000 }, { where: { userId } });
+    await Users.decrement({ point: 5000 }, { where: { userId } });
 
     return;
   };

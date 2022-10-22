@@ -37,10 +37,8 @@ class MypagesService {
       const allmypages = await this.mypagesRepository.getMain(userId);
       console.log(allmypages)
         return {
-          userId: allmypages.userId,
           point: allmypages.point,
-          nickname: allmypages.nickname,
-          createdAt: allmypages.createdAt
+          nickname: allmypages.nickname
         }
 
     }

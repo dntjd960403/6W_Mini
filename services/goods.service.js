@@ -28,7 +28,7 @@ class GoodsService {
       goodsDetail
     );
 
-    const updatedGoods = await this.goodsrepository.findGoods(goodsId)[0];
+    const updatedGoods = await this.goodsrepository.findGoods(goodsId);
 
     return updatedGoods;
   };

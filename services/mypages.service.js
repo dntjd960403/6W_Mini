@@ -7,7 +7,7 @@ const dom = function rand(min, max) {
 class MypagesService {
   mypagesRepository = new MypagesRepository();
 
-  editPersonalData = async (nickname, password, confirm, email, address, userId) => {
+  editPersonalData = async(nickname, password, confirm, email, address, userId) => {
     if (password !== confirm) {
       return '패스워드와 패스워드 확인란이 달라요';
     }

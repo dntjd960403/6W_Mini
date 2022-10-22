@@ -14,20 +14,22 @@ module.exports = async (req, res, next) => {
         return;
     }
 
-    try {
+    // try {
         // 검증 ( userId만 필요)
         const {userId} = jwt.verify(authToken, "mySecretKey");
-        //console.log("TEST;", userId)
+        
+        console.log("TEST;", userId)
         await Users.findByPk(userId).then((user) => {
             res.locals.user = user;
+            console.log(user)
             //console.log(res.locals.user)
 // **** 반드시 next 먼저 호출해야함 안그러면 미들웨어 레벨 예외처리 걸려서 그 뒤에있는 미들웨어는 연결 x
             next();
         });
-    } catch (err) {
-        res.status(401).send({
-            errorMessage: "로그인이 필요한 기능입니다.",
-        });
-        console.log(`${err.name} : ${err.message}`);
-    }
+    // // } catch (err) {
+    //     res.status(401).send({
+    //         errorMessage: "로그인이 필요한 기능입니다.",
+    //     });
+    //     console.log(`${err.name} : ${err.message}`);
+    // }
 };

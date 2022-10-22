@@ -7,11 +7,13 @@ class RequestsController {
   getRequests = async (req, res, next) => {
     try{
     const requests = await this.requestsService.findAllRequest();
-
-    res.status(200).reviews({ data: requests })
+    
+     res.status(200).json({ data: requests })
     }catch(err){
     res.status(400).json({message: err.message})
     }
+   
+    
   }
 
   createRequests = async (req, res, next) => { 

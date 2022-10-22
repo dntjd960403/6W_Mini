@@ -6,6 +6,13 @@ class RequestsRepository {
 
     return request;
   }
+
+  findById = async (userId) => {
+    const request = await requests.findByPk(userId);
+
+    return request;
+
+  }
   
   RequestsById = async (requestId) => {
     const request = await requests.findByPk(requestId);

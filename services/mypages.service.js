@@ -27,14 +27,33 @@ class MypagesService {
         }
       });
     }
-  
-    createMypages = async (userId,point,goodsId) => {
 
-      const createMypagesData = await this.mypagesRepository.createMypages(userId,point,goodsId);
+    getRandoms = async () => {
+
+      const allrandom = await this.mypagesRepository.getRandoms();
+
+      allrandom.sort((a, b) => {
+        return b.createdAt - a.createdAt;
+      })
+
+      return allrandom.map(random => {
+        return {
+          userId: random.userId,
+          goodsId: random.goodsId,
+          createdAt: random.createdAt
+        }
+      });
+
+    }
+  
+    createMypages = async (userId,point) => {
+
+      const createMypagesData = await this.mypagesRepository.createMypages(userId,point);
       // moneyPoint -= 5000;
       // await this.mypagesRepository.deductionPoints(moneyPoint);
-
       const r = dom (1, 5)
+      goodsId = r;
+      const findGood = await this.mypagesRepository.findGoods(goodsId);
 
       // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
       return {

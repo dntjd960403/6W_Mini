@@ -7,8 +7,8 @@ const requestsController = new RequestsController();
 
 router.get("/", authMiddleware, requestsController.getRequests);
 router.post("/", authMiddleware, requestsController.createRequests);
-router.put("/:requestsId", authMiddleware, requestsController.updateRequests)
-router.delete("/:requestsId", authMiddleware, requestsController.deleteRequests)
+router.put("/:requestId", authMiddleware, requestsController.updateRequests)
+router.delete("/:requestId", authMiddleware, requestsController.deleteRequests)
 
 
 module.exports = router;

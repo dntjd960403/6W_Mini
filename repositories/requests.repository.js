@@ -21,14 +21,14 @@ class RequestsRepository {
     return createRequestsData;
   }
 
-  updateReviews = async (requestId,request) => {
+  updateRequests = async (requestId,request) => {
     const updateRequestsData = await requests.update({request},{where: {requestId}});
 
     return updateRequestsData;
   }
  
 
-  deleteReviews = async (requestId) => {
+  deleteRequests = async (requestId) => {
     const deleteRequestsData = await requests.destroy({ where: {requestId}});
 
     return deleteRequestsData;

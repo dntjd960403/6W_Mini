@@ -38,7 +38,7 @@ class RequestsService {
     updateRequests = async (requestId,request) => {
 
       await this.requestsRepository.updateRequests(requestId,request);
-      const updateRequestsData = await this.requestsRepository.RequestsById(reviewId);
+      const updateRequestsData = await this.requestsRepository.RequestsById(requestId);
 
       return {
         requestId: updateRequestsData.null,
@@ -49,8 +49,8 @@ class RequestsService {
       };
     }
 
-    deleteReviews = async (requestId) => {
-      await this.requestsRepository.deleteReviews(requestId);
+    deleteRequests = async (requestId) => {
+      await this.requestsRepository.deleteRequests(requestId);
       const deleteReviewsData = await this.requestsRepository.RequestsById(requestId);
 
       return deleteReviewsData;

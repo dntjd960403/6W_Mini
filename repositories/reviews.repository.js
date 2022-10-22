@@ -14,15 +14,15 @@ class ReviewsRepository {
 
   }
 
-  createReviews = async (userId,goodsId,review) => {
+  createReviews = async (userId,review) => {
 
-    const createReviewsData = await reviews.create({ userId,goodsId,review });
+    const createReviewsData = await reviews.create({ userId,review });
 
     return createReviewsData;
   }
 
-  updateReviews = async (reviewId,goodsId,review) => {
-    const updateReviewsData = await reviews.update({review, goodsId},{where: {reviewId}});
+  updateReviews = async (reviewId,review) => {
+    const updateReviewsData = await reviews.update({review},{where: {reviewId}});
 
     return updateReviewsData;
   }

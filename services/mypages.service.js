@@ -1,108 +1,73 @@
-
-const MypagesRepository = require("../repositories/mypages.repository")
+const MypagesRepository = require('../repositories/mypages.repository');
 
 const dom = function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 class MypagesService {
   mypagesRepository = new MypagesRepository();
 
-  editPersonalData = async(nickname, password, confirm, email, address, userId) => {
+  editPersonalData = async (nickname, password, confirm, email, address, userId) => {
     if (password !== confirm) {
       return '패스워드와 패스워드 확인란이 달라요';
     }
     await this.mypagesRepository.editPersonalData(nickname, password, email, address, userId);
     return '개인정보 변경이 완료되었습니다';
   };
-  
-    findAllMypage = async (userId) => {
 
-      const allmypages = await this.mypagesRepository.findAllMypage(userId);
-      console.log(allmypages)
-        return {
-          userId: allmypages.userId,
-          point: allmypages.point,
-          id : allmypages.id,
-          nickname: allmypages.nickname,
-          email: allmypages.email,
-          address: allmypages.address,
-          createdAt: allmypages.createdAt
-        }
-
-    }
-    
-    getMain = async (userId) => {
-
-      const allmypages = await this.mypagesRepository.getMain(userId);
-      console.log(allmypages)
-        return {
-          userId: allmypages.userId,
-          point: allmypages.point,
-          nickname: allmypages.nickname,
-          createdAt: allmypages.createdAt
-        }
-
-    }
-
-    getRandoms = async () => {
-
-      const allrandom = await this.mypagesRepository.getRandoms();
-
-      allrandom.sort((a, b) => {
-        return b.createdAt - a.createdAt;
-      })
-
-      return allrandom.map(random => {
-        return {
-          userId: random.userId,
-          goodsId: random.goodsId,
-          createdAt: random.createdAt
-        }
-      });
-
-    }
-  
-    createRandoms = async (userId) => {
-
-      const createRandomData = await this.mypagesRepository.createRandoms(userId);
-      // moneyPoint -= 5000;
-      // await this.mypagesRepository.deductionPoints(moneyPoint);
-      const randomGoodsId = dom (1, 5)
-      goodsId = randomGoodsId;
-      // await this.mypagesRepository.findGoods(userId);
-
-      // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
-      return {
-        randomGoodsId: randomGoodsId,
-        userId: createRandomData.userId,
-        goodsId: createRandomData.goodsId,
-        createdAt: createRandomData.createdAt,
-        updatedAt: createRandomData.updatedAt
-      };
-    }
-
-    deleteMypages = async (userId,goodsId) => {
-      await this.mypagesRepository.deleteMypages(goodsId);
-      const deleteMypagesData = await this.mypagesRepository.MypagesById(userId,goodsId);
-
-      return deleteMypagesData;
-      
-    }
-
-    putPointMypages = async (userId) => {
-      const updatePost = await this.mypagesRepository.putPointMypages(userId);
-
-      // const updatePost = await this.mypagesRepository.findMypageById(userId);
-      return ;
+  findAllMypage = async (userId) => {
+    const allmypages = await this.mypagesRepository.findAllMypage(userId);
+    console.log(allmypages);
+    return {
+      userId: allmypages.userId,
+      point: allmypages.point,
+      id: allmypages.id,
+      nickname: allmypages.nickname,
+      email: allmypages.email,
+      address: allmypages.address,
+      createdAt: allmypages.createdAt,
     };
-  
-    getPointMypages = async (userId) => {
-      const findPointMypages = await this.mypagesRepository.findPointById(userId);
+  };
 
-      return findPointMypages;
+  getMain = async (userId) => {
+    const allmypages = await this.mypagesRepository.getMain(userId);
+    console.log(allmypages);
+    return {
+      userId: allmypages.userId,
+      point: allmypages.point,
+      nickname: allmypages.nickname,
+      createdAt: allmypages.createdAt,
     };
+  };
 
-  }
-  
-  module.exports = MypagesService;
+  // 유저 박스에 상품 생성
+  createRandoms = async (userId) => {
+    //포인트 차감 포인트 모자를 시 벨리데이션으로 에러 보내기
+    const getMain = await this.getMain(userId);
+    if (getMain['point'] < 5000) {
+      throw { code: -2 };
+    }
+    const putPointMypages = await this.mypagesRepository.putPointMypages(userId);
+    //전체 상품 갯수를 세서 랜덤으로 숫자 뽑기
+    const goodsLength = await this.mypagesRepository.findAllGoods();
+    const randomNum = dom(1, 100);
+    const goodsId = (randomNum % goodsLength) + 1;
+    // 뽑힌 숫자 상품을 박스에 넣어주기
+    const createItem = await this.mypagesRepository.createRandoms(userId, goodsId);
+    return createItem;
+  };
+
+  putPointMypages = async (userId) => {
+    const updatePost = await this.mypagesRepository.putPointMypages(userId);
+
+    return;
+  };
+
+  getPointMypages = async (userId) => {
+    const findPointMypages = await this.mypagesRepository.findPointById(userId);
+
+    return findPointMypages;
+  };
+}
+
+module.exports = MypagesService;

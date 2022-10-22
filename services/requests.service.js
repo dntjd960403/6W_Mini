@@ -6,18 +6,18 @@ class RequestsService {
   
   findAllRequest = async () => {
 
-      const allReviews = await this.requestsRepository.findAllRequest();
-  
-      allReviews.sort((a, b) => {
+      const allRequests = await this.requestsRepository.findAllRequest();
+
+      allRequests.sort((a, b) => {
         return b.createdAt - a.createdAt;
       })
   
 
-      return allReviews.map(review => {
+      return allRequests.map(request => {
         return {
-          userId: review.userId,
-          request: review.request,
-          createdAt: review.createdAt
+          userId: request.userId,
+          request: request.request,
+          createdAt: request.createdAt
         }
       });
     }

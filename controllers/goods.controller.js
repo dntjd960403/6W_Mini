@@ -77,5 +77,5 @@ class GoodsController {
     }
   };
 }
-
+//깃 확인
 module.exports = GoodsController;

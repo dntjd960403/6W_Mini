@@ -43,11 +43,6 @@ class MypagesController {
     res.status(200).json({ data: random });
   };
 
-  /* 
-  1. 상자를 누른다.
-  2. 마이페이지 getRandoms에 새 데이터를 만든다
-  3. 
-  */
   createRandoms = async (req, res, next) => {
     try {
       const { userId } = res.locals.user;

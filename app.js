@@ -12,7 +12,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/', routes);
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 
 http.listen(port, () => {
   console.log(`Start listen Server: ${port}`);

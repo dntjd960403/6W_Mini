@@ -1,18 +1,17 @@
 const { Users } = require('../models');
 
 class UserRepository {
-  findUserByNickname = async (verifyFormat) => {
-    const nickname = verifyFormat.nickname;
+  findUserByNickname = async (nickname) => {
     const user = await Users.findOne({ where: { nickname } });
     return user;
   };
 
-  signup = async (verifyFormat) => {
-    const id = verifyFormat.id;
-    const nickname = verifyFormat.nickname;
-    const password = verifyFormat.password;
-    const email = verifyFormat.email;
-    const address = verifyFormat.address;
+  findUserById = async (id) => {
+    const user = await Users.findOne({ where: { id } });
+    return user;
+}
+
+  signup = async (id, nickname, password, email, address) => {
     const registerUser = await Users.create({
       id,
       nickname,
@@ -23,8 +22,8 @@ class UserRepository {
     return registerUser;
   };
 
-  login = async (id, password) => {
-    const findUser = await Users.findOne({ where: { id, password } });
+  login = async (id, hashedPassword) => {
+    const findUser = await Users.findOne({ where: { id, password: hashedPassword } });
     return findUser;
   };
 

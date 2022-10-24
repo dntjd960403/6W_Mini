@@ -20,11 +20,12 @@ class MypagesController {
       res.status(400).json({ errorMessage: '요청한 데이터 형식이 올바르지 않습니다.' });
     }
   };
+
   //마이페이지안에 로그인한 개인정보
   getMypages = async (req, res, next) => {
     const { userId } = req.params;
-
-    const mypages = await this.mypagesService.findAllMypage(userId);
+    const { id } = res.locals.user;
+    const mypages = await this.mypagesService.findAllMypage(userId, id);
 
     res.status(200).json({ data: mypages });
   };

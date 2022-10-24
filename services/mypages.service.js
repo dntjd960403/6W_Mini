@@ -15,19 +15,24 @@ class MypagesService {
     return '개인정보 변경이 완료되었습니다';
   };
   //마이페이지 내 정보
-  findAllMypage = async (userId) => {
-    const allmypages = await this.mypagesRepository.findAllMypage(userId);
+  findAllMypage = async (userId, id) => {
+    const allmypages = await this.mypagesRepository.findAllMypage(userId, id);
     console.log(allmypages);
-    return {
-      userId: allmypages.userId,
-      point: allmypages.point,
-      id: allmypages.id,
-      nickname: allmypages.nickname,
-      email: allmypages.email,
-      address: allmypages.address,
-      createdAt: allmypages.createdAt,
+    try {
+      return {
+        userId: allmypages.userId,
+        point: allmypages.point,
+        id: allmypages.id,
+        nickname: allmypages.nickname,
+        email: allmypages.email,
+        address: allmypages.address,
+        createdAt: allmypages.createdAt,
+      }
+    } catch (error) {
+      return "권한이 없습니다"
+      }
     };
-  };
+
   //메인페이지에 보일 자신의 닉네임,포인트
   getMain = async (userId) => {
     const allmypages = await this.mypagesRepository.getMain(userId);

@@ -1,4 +1,3 @@
-const { mypages } = require('../models');
 const { Goods, Boxes } = require('../models');
 const { Users, sequelize } = require('../models');
 
@@ -12,8 +11,8 @@ class MypagesRepository {
     return editedPersonalData;
   };
   //마이페이지에서 내 정보
-  findAllMypage = async (userId) => {
-    const mypage = await Users.findOne({ where: { userId } });
+  findAllMypage = async (userId, id) => {
+    const mypage = await Users.findOne({ where: { userId, id } });
 
     return mypage;
   };

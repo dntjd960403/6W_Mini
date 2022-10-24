@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
 
   await Users.findByPk(userId).then((user) => {
     res.locals.user = user;
-    //console.log(res.locals.user)
+    console.log("토큰 정보 추출", res.locals.user)
     next();
   });
   // // } catch (err) {

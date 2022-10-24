@@ -5,7 +5,7 @@ const re_id = /^[a-zA-Z0-9]{4,10}$/;
 const re_nickname = /^[a-zA-Z0-9]{3,10}$/;
 const re_password = /^[a-zA-Z0-9]{4,30}$/;
 const re_email =
-  /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+    /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
 
 const schema = Joi.object({
   id: Joi.string().pattern(re_id).required(),
@@ -18,6 +18,7 @@ const schema = Joi.object({
 
 class UserController {
   userService = new UserService();
+  //회원가입
   signup = async (req, res, next) => {
     try {
       const { id, nickname, password, confirm, email, address } = req.body;
@@ -25,14 +26,15 @@ class UserController {
       const registerUserResult = await this.userService.signup( id, nickname, password, confirm, email, address );
       res.status(200).json({message: registerUserResult})
     } catch (error) {
-      //console.log(`${error.message}`);
-      res.status(412).json({errorMessage: '회원가입 실패'});
+      console.log(error)
+      res.status(412).json({ message: error.message })
     }
   };
 
+  //로그인
   login = async (req, res, next) => {
     try {
-      const {id, password} = req.body;
+      const { id, password } = req.body;
       const loginResult = await this.userService.login(id, password);
       // console.log(user)
       res.status(200).json(loginResult);
@@ -42,11 +44,11 @@ class UserController {
     }
   };
 
+  //비밀번호 분실시 아이디, 이메일로 회원 확인하여 비밀번호 변경
   changePassword = async (req, res, next) => {
     try {
-      const {id, password, confirm, email} = req.body;
-      const {userId} = res.locals.user;
-      console.log(userId);
+      const { id, password, confirm, email}  = req.body;
+      const { userId } = res.locals.user;
       const changePasswordResult = await this.userService.changePassword(id, password, confirm, email, userId);
       res.status(200).json({message: changePasswordResult});
     } catch (error) {

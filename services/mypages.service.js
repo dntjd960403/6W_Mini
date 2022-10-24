@@ -6,7 +6,7 @@ const dom = function rand(min, max) {
 
 class MypagesService {
   mypagesRepository = new MypagesRepository();
-
+  //마이페이지 개인정보수정
   editPersonalData = async(nickname, password, confirm, email, address, userId) => {
     if (password !== confirm) {
       return '패스워드와 패스워드 확인란이 달라요';
@@ -14,7 +14,7 @@ class MypagesService {
     await this.mypagesRepository.editPersonalData(nickname, password, email, address, userId);
     return '개인정보 변경이 완료되었습니다';
   };
-
+  //마이페이지 내 정보
   findAllMypage = async (userId) => {
     const allmypages = await this.mypagesRepository.findAllMypage(userId);
     console.log(allmypages);
@@ -28,7 +28,7 @@ class MypagesService {
       createdAt: allmypages.createdAt,
     };
   };
-
+  //메인페이지에 보일 자신의 닉네임,포인트
   getMain = async (userId) => {
     const allmypages = await this.mypagesRepository.getMain(userId);
     return {
@@ -38,7 +38,7 @@ class MypagesService {
       createdAt: allmypages.createdAt,
     };
   };
-
+  //마이페이지내에 자신이 구입한 상품
   getRandoms = async (userId,goodsId) => {
     const randoms = await this.mypagesRepository.getRandoms(userId,goodsId);
   
@@ -61,17 +61,17 @@ class MypagesService {
     const createItem = await this.mypagesRepository.createRandoms(userId, goodsId);
     return createItem;
   };
-
+  //박스 구입시 포인트 차감
   putPointMypages = async (userId) => {
     const updatePost = await this.mypagesRepository.putPointMypages(userId);
 
     return;
   };
+  //마이페이지 내에 상품 버리기
+  deleteGoods = async (boxId) => {
+    const goods = await this.mypagesRepository.deleteGoods(boxId);
 
-  deleteGoods = async (userId, goodsId) => {
-    const goods = await this.mypagesRepository.deleteGoods(userId, goodsId);
-
-    return;
+    return goods;
   }
 }
 

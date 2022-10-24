@@ -34,6 +34,11 @@ class MypagesService {
     };
 
   //메인페이지에 보일 자신의 닉네임,포인트
+  /**
+   * 주석 테스트
+   * @param {} userId 
+   * @returns 
+   */
   getMain = async (userId) => {
     const allmypages = await this.mypagesRepository.getMain(userId);
     return {

@@ -31,7 +31,6 @@ class MypagesService {
 
   getMain = async (userId) => {
     const allmypages = await this.mypagesRepository.getMain(userId);
-    console.log(allmypages);
     return {
       userId: allmypages.userId,
       point: allmypages.point,
@@ -39,6 +38,12 @@ class MypagesService {
       createdAt: allmypages.createdAt,
     };
   };
+
+  getRandoms = async (userId,goodsId) => {
+    const randoms = await this.mypagesRepository.getRandoms(userId,goodsId);
+  
+    return randoms;
+  }
 
   // 유저 박스에 상품 생성
   createRandoms = async (userId) => {
@@ -63,11 +68,11 @@ class MypagesService {
     return;
   };
 
-  getPointMypages = async (userId) => {
-    const findPointMypages = await this.mypagesRepository.findPointById(userId);
+  deleteGoods = async (userId, goodsId) => {
+    const goods = await this.mypagesRepository.deleteGoods(userId, goodsId);
 
-    return findPointMypages;
-  };
+    return;
+  }
 }
 
 module.exports = MypagesService;

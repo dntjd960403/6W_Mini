@@ -18,11 +18,20 @@ class GoodsController {
     try {
       const { name, imageUrl, goodsDetail } = req.body;
 
-      const createGoods = await this.goodsService.createGoods(
-        name,
-        imageUrl,
-        goodsDetail
-      );
+      if (!name) {
+        res.status(412).json({ errorMessage: '이름 입력 안했누' });
+        return;
+      }
+      if (!imageUrl) {
+        res.status(412).json({ errorMessage: '이미지 입력 안했누' });
+        return;
+      }
+      if (!goodsDetail) {
+        res.status(412).json({ errorMessage: '설명 입력 안했누' });
+        return;
+      }
+
+      const createGoods = await this.goodsService.createGoods(name, imageUrl, goodsDetail);
 
       res.status(201).json({ message: '상품 등록 완료링~', createGoods });
     } catch (err) {
@@ -40,12 +49,7 @@ class GoodsController {
       const { name, imageUrl, goodsDetail } = req.body;
       const { goodsId } = req.params;
 
-      const updateGoods = await this.goodsService.updateGoods(
-        goodsId,
-        name,
-        imageUrl,
-        goodsDetail
-      );
+      const updateGoods = await this.goodsService.updateGoods(goodsId, name, imageUrl, goodsDetail);
 
       res.status(200).json({ message: '상품 수정 내역이유~', updateGoods });
     } catch (err) {

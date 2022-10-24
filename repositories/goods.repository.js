@@ -20,14 +20,12 @@ class GoodsRepository {
       goodsId: createGoods.null,
       name: createGoods.name,
       imageUrl: createGoods.imageUrl,
+      goodsDetail: createGoods.goodsDetail,
     };
   };
   // 상품 수정
   updateGoods = async (goodsId, name, imageUrl, goodsDetail) => {
-    const updateGoods = await Goods.update(
-      { name, imageUrl, goodsDetail },
-      { where: { goodsId } }
-    );
+    const updateGoods = await Goods.update({ name, imageUrl, goodsDetail }, { where: { goodsId } });
 
     return updateGoods;
   };

@@ -38,7 +38,9 @@ class MypagesController {
   };
 
   getRandoms = async (req, res, next) => {
-    const random = await this.mypagesService.getRandoms();
+    const { userId } = req.params;
+
+    const random = await this.mypagesService.getRandoms(userId);
 
     res.status(200).json({ data: random });
   };
@@ -59,20 +61,12 @@ class MypagesController {
     }
   };
   // abc
-  deleteMypages = async (req, res, next) => {
-    const { userId, goodsId } = req.params;
+  deleteGoods = async (req, res, next) => {
+    const { userId,goodsId } = req.params;
 
-    const removeMypages = await this.mypagesService.deleteMypages(userId, goodsId);
+    const removeGoods = await this.mypagesService.deleteGoods(userId,goodsId);
 
-    res.status(200).json({ data: removeMypages });
-  };
-
-  findCommentsId = async (req, res, next) => {
-    const { commentsId } = req.params;
-
-    const Id = await this.mypagesService.findCommentsId(commentsId);
-
-    res.status(200).send({ comments: Id });
+    res.status(200).json({ data: removeGoods });
   };
 
   putPointMypages = async (req, res, next) => {
@@ -82,11 +76,6 @@ class MypagesController {
     res.status(200).json({ data: '포인트 충전이 완료되었습니다.' });
   };
 
-  getPointMypages = async (req, res, next) => {
-    const { userId } = res.locals.user;
-    const getPointMypage = await this.mypagesService.getPointMypages(userId);
-    res.status(200).json({ data: getPointMypage });
-  };
 }
 
 module.exports = MypagesController;

@@ -23,6 +23,14 @@ class MypagesRepository {
     return mypage;
   };
 
+  getRandoms = async (userId) => {
+    const randoms = await Boxes.findAll({where: {userId}});
+    // // console.log(randoms[Boxes])
+    // console.log(randoms)
+    return ;
+
+  }
+
   createRandoms = async (userId, goodsId) => {
     const createGoods = await Boxes.create({ userId, goodsId });
 
@@ -47,6 +55,11 @@ class MypagesRepository {
 
     return;
   };
+
+  deleteGoods = async (goodsId) => {
+
+    await Boxes.destroy({where: {goodsId}});
+  }
 }
 
 module.exports = MypagesRepository;

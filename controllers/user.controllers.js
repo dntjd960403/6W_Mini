@@ -12,17 +12,17 @@ const schema = Joi.object({
   nickname: Joi.string().pattern(re_nickname).required(),
   password: Joi.string().pattern(re_password).required(),
   confirm: Joi.string().required(),
-  address: Joi.string().required(),
   email: Joi.string().pattern(re_email).required(),
+  address: Joi.string().required(),
 });
 
 class UserController {
   userService = new UserService();
   signup = async (req, res, next) => {
     try {
-      const verifyFormat = await schema.validateAsync(req.body)
-      console.log(verifyFormat);
-      const registerUserResult = await this.userService.signup(verifyFormat);
+      const { id, nickname, password, confirm, email, address } = req.body;
+      await schema.validateAsync(req.body);
+      const registerUserResult = await this.userService.signup( id, nickname, password, confirm, email, address );
       res.status(200).json({message: registerUserResult})
     } catch (error) {
       //console.log(`${error.message}`);

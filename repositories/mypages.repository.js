@@ -28,7 +28,8 @@ class MypagesRepository {
     const randoms = await Boxes.findAll({where: {userId}});
     // // console.log(randoms[Boxes])
     // console.log(randoms)
-    return randoms;
+
+   return randoms;
 
   }
   // 뽑힌 숫자 상품을 박스에 넣어주기

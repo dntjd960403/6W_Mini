@@ -25,12 +25,16 @@ class MypagesRepository {
   };
   //마이페이지에서 내가 구입한 상품들 조회
   getRandoms = async (userId) => {
-    const randoms = await Boxes.findAll({where: {userId}});
-    // // console.log(randoms[Boxes])
-    // console.log(randoms)
-    return randoms;
-
-  }
+    const randoms = await Boxes.findAll({ where: { userId } });
+    const randomBox = [];
+    for (let i = 0; i < randoms.length; i++) {
+      randomBox.push({
+        userId: randoms[i].dataValues.userId,
+        goodsId: randoms[i].dataValues.goodsId,
+      });
+    }
+    return randomBox;
+  };
   // 뽑힌 숫자 상품을 박스에 넣어주기
   createRandoms = async (userId, goodsId) => {
     const createGoods = await Boxes.create({ userId, goodsId });
@@ -51,11 +55,10 @@ class MypagesRepository {
   };
   //마이페이지 내에 상품 버리기
   deleteGoods = async (boxId) => {
-    const deleteG = await Boxes.destroy({where: {boxId}});
+    const deleteG = await Boxes.destroy({ where: { boxId } });
 
     return deleteG;
   };
-
 }
 
 module.exports = MypagesRepository;

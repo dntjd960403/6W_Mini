@@ -14,9 +14,9 @@ class ReviewsRepository {
 
   }
 
-  createReviews = async (userId,review) => {
+  createReviews = async (userId,goodsId,review) => {
 
-    const createReviewsData = await reviews.create({ userId,review });
+    const createReviewsData = await reviews.create({ userId,goodsId,review });
 
     return createReviewsData;
   }

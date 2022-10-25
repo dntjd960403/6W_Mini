@@ -19,9 +19,9 @@ class RequestsController {
   createRequests = async (req, res, next) => { 
     const { request } = req.body;
     const { userId } = res.locals.user;
-    const createRequestsData = await this.requestsService.createRequests(userId,request);
+    await this.requestsService.createRequests(userId,request);
 
-    res.status(201).json({ data: createRequestsData });
+    res.status(201).json({ message: '상품요청하였습니다.' });
   }
 
   updateRequests = async (req, res, next) => {
@@ -29,18 +29,18 @@ class RequestsController {
     const {requestId} = req.params;
     const {request} = req.body;
 
-    const updateRequestsData = await this.requestsService.updateRequests(requestId, request);
+    await this.requestsService.updateRequests(requestId, request);
       
-    res.status(200).send({ data: updateRequestsData });
+    res.status(200).send({ message: '상품변경요청하였습니다.' });
       
     }
 
     deleteRequests = async (req, res, next) => {
     const {requestId} = req.params
 
-    const removeRequests = await this.requestsService.deleteRequests(requestId);
+    await this.requestsService.deleteRequests(requestId);
 
-    res.status(200).json({ data: removeRequests });
+    res.status(200).json({ message: '정상적으로 삭제되었습니다.' });
     }
 
   }

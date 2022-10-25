@@ -27,6 +27,7 @@ class UserServices {
             const salt = await bcrypt.genSalt(10);
             const encryptedPW = bcrypt.hashSync(password, salt);
             password = encryptedPW;
+            console.log(password)
             const createMembersData = await this.userRepository.signup(id, nickname, password, email, address);
             return "회원가입 성공";
     };

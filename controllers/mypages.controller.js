@@ -37,7 +37,7 @@ class MypagesController {
 
     res.status(200).json({ data: main });
   };
-  //마이페이지내에 구매한 상품조회
+  //마이페이지 내에 구매한 상품조회
   getRandoms = async (req, res, next) => {
     const { userId } = req.params;
 
@@ -45,7 +45,7 @@ class MypagesController {
 
     res.status(200).json({ data: random });
   };
-  // 유저 박스에 상품 생성
+  //유저 박스에 상품 생성
   createRandoms = async (req, res, next) => {
     try {
       const { userId } = res.locals.user;
@@ -63,13 +63,12 @@ class MypagesController {
   };
   // 구입한 상품 버리기
   deleteGoods = async (req, res, next) => {
-    
+
     const { boxId } = req.params;
 
     await this.mypagesService.deleteGoods(boxId);
 
     res.status(200).json({ message: '버린거 확인완료링~!' });
-    
   };
   // 메인페이지에서 박스누르면 포인트 차감
   putPointMypages = async (req, res, next) => {
@@ -79,6 +78,36 @@ class MypagesController {
     res.status(200).json({ data: '포인트 차감됨' });
   };
 
+  //id로 관리자 여부 조회
+  checkAdmin = async (req, res, next) => {
+    try {
+      const { id } = res.locals.user;
+      await this.mypagesService.checkAdmin(id);
+      return ({ data: "관리자 O" });
+    } catch (error) {
+      //res.status(400).json({data: "관리자 X"});
+      return ({ message: error.message })
+    }
+  };
+
+  //포인트 적립(관리자 권한 필요)
+  plusPoint = async (req, res, next) => {
+    const { id } = res.locals.user;
+    const { point, userId } = req.body;
+    const checkAdmin = await this.mypagesService.checkAdmin(id)
+      .catch((error) => {
+        res.status(401).json({ data: error.message });
+      });
+    console.log("checkAdmin", checkAdmin);
+    try {
+      if (checkAdmin === "관리자 확인됨") {
+        await this.mypagesService.plusPoint(id, point, userId);
+        res.status(200).json({ data: '포인트 충전됨' });
+      }
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  };
 }
 
 module.exports = MypagesController;

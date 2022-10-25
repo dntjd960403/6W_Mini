@@ -23,27 +23,39 @@ class MypagesController {
 
   //마이페이지안에 로그인한 개인정보
   getMypages = async (req, res, next) => {
+    try{
     const { userId } = req.params;
     const { id } = res.locals.user;
     const mypages = await this.mypagesService.findAllMypage(userId, id);
 
     res.status(200).json({ data: mypages });
+  } catch(error) {
+    res.status(400).json({ errorMessage: error.message })
+  }
   };
   //메인페이지에 상단에 보일 닉네임,포인트
   getMain = async (req, res, next) => {
+    try{
     const { userId } = req.params;
 
     const main = await this.mypagesService.getMain(userId);
 
     res.status(200).json({ data: main });
+  } catch(error) {
+    res.status(400).json({ errorMessage: error.message })
+  }
   };
   //마이페이지 내에 구매한 상품조회
   getRandoms = async (req, res, next) => {
+    try{
     const { userId } = req.params;
 
     const random = await this.mypagesService.getRandoms(userId);
 
     res.status(200).json({ data: random });
+  } catch(error) {
+    res.status(400).json({ errorMessage: error.message })
+  }
   };
   //유저 박스에 상품 생성
   createRandoms = async (req, res, next) => {

@@ -16,9 +16,8 @@ class MypagesService {
     };
     //마이페이지 내 정보
     findAllMypage = async (userId, id) => {
+      try {
         const allmypages = await this.mypagesRepository.findAllMypage(userId, id);
-        console.log(allmypages);
-        try {
             return {
                 userId: allmypages.userId,
                 point: allmypages.point,
@@ -29,7 +28,7 @@ class MypagesService {
                 createdAt: allmypages.createdAt,
             }
         } catch (error) {
-            return "권한이 없습니다"
+            throw new Error ("findAllMypage에서 권한이 없습니다")
         }
     };
 
@@ -40,6 +39,7 @@ class MypagesService {
      * @returns
      */
     getMain = async (userId) => {
+      try {
         const allmypages = await this.mypagesRepository.getMain(userId);
         return {
             userId: allmypages.userId,
@@ -47,12 +47,20 @@ class MypagesService {
             nickname: allmypages.nickname,
             createdAt: allmypages.createdAt,
         };
+      } catch (error) {
+        throw new Error ("getMain에서 권한이 없습니다")
+      }
     };
     //마이페이지내에 자신이 구입한 상품
     getRandoms = async (userId, goodsId) => {
+      try{
         const randoms = await this.mypagesRepository.getRandoms(userId, goodsId);
 
         return randoms;
+
+      } catch (error) {
+        throw new Error ("getRandoms에서 권한이 없습니다")
+      }
     }
 
     // 유저 박스에 상품 생성

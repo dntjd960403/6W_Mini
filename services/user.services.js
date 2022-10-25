@@ -29,7 +29,10 @@ class UserServices {
             password = encryptedPW;
             console.log(password)
             const createMembersData = await this.userRepository.signup(id, nickname, password, email, address);
-            return "회원가입 성공";
+            return {
+                message: "회원가입 성공",
+                ok: true,
+            };
     };
 
     //로그인
@@ -41,7 +44,7 @@ class UserServices {
             throw new Error ( "아이디 또는 패스워드를 확인해주세요." );
         }
         let token = jwt.sign({userId: user.userId, id: user.id}, "mySecretKey");
-        return {message: "1", token};
+        return {message: "로그인 성공", ok: "1", token};
     }
 
     //비밀번호 분실시 아이디, 이메일로 회원 확인하여 비밀번호 변경

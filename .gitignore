@@ -1,4 +1,4 @@
 node_modules
 .env
 .idea
-.prettierrc.js
+.prettierrc.js.DS_Store

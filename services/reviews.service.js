@@ -22,13 +22,14 @@ class ReviewsService {
       });
     }
   
-    createReviews = async (userId,review) => {
+    createReviews = async (userId,goodsId,review) => {
 
-      const createReviewsData = await this.reviewsRepository.createReviews(userId,review);
+      const createReviewsData = await this.reviewsRepository.createReviews(userId,goodsId,review);
 
       return {
         reviewId: createReviewsData.null,
         userId: createReviewsData.userId,
+        goodsId: createReviewsData.goodsId,
         review: createReviewsData.review,
         createdAt: createReviewsData.createdAt,
         updatedAt: createReviewsData.updatedAt

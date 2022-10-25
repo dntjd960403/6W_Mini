@@ -15,11 +15,11 @@ class ReviewsController {
   }
 
   createReviews = async (req, res, next) => { 
-    const { review } = req.body;
+    const { goodsId,review } = req.body;
     const { userId } = res.locals.user;
-    const createReviewsData = await this.reviewsService.createReviews(userId,review);
+    await this.reviewsService.createReviews(userId,goodsId,review);
 
-    res.status(201).json({ data: createReviewsData });
+    res.status(201).json({ message: '리뷰작성이 완료되었습니다.' });
   }
 
   updateReviews = async (req, res, next) => {
@@ -27,18 +27,18 @@ class ReviewsController {
     const {reviewId} = req.params;
     const {review} = req.body;
 
-    const updateReviewsData = await this.reviewsService.updateReviews(reviewId, review);
+    await this.reviewsService.updateReviews(reviewId, review);
       
-    res.status(200).send({ reviews: updateReviewsData });
+    res.status(200).send({ message: '리뷰작성을 수정하였습니다.' });
       
     }
 
     deleteReviews = async (req, res, next) => {
     const {reviewId} = req.params
 
-    const removeReviews = await this.reviewsService.deleteReviews(reviewId);
+    await this.reviewsService.deleteReviews(reviewId);
 
-    res.status(200).json({ data: removeReviews });
+    res.status(200).json({ message: '리뷰를 삭제하였습니다.' });
     }
 
   }

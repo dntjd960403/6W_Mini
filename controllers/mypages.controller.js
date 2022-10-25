@@ -76,7 +76,7 @@ class MypagesController {
     const { userId } = res.locals.user;
 
     await this.mypagesService.putPointMypages(userId);
-    res.status(200).json({ data: '' });
+    res.status(200).json({ data: '포인트 차감됨' });
   };
 
 }

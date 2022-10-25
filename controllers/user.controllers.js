@@ -24,9 +24,9 @@ class UserController {
             const {id, nickname, password, confirm, email, address} = req.body;
             await schema.validateAsync(req.body);
             const registerUserResult = await this.userService.signup(id, nickname, password, confirm, email, address);
-            res.status(200).json({message: registerUserResult})
+            res.status(200).json({message: registerUserResult.message, ok: registerUserResult.ok})
         } catch (error) {
-            res.status(412).json({errorMessage: error.message})
+            res.status(412).json({errorMessage: error.message, ok : "fasle"});
         }
     };
 
@@ -39,7 +39,7 @@ class UserController {
             res.status(200).json(loginResult);
         } catch (error) {
             console.log(`${error.message}`);
-            res.status(400).send({errorMessage: error.message});
+            res.status(400).send({errorMessage: error.message, ok : "2"});
         }
     };
 

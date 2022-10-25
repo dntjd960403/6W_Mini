@@ -17,11 +17,11 @@ class UserServices {
 
             const existsUser = await this.userRepository.findUserByNickname(nickname);
             if (existsUser) {
-                throw new Error  ('중복된 닉네임입니다.')
+                throw new Error  ('중복된 닉네임입니다.');
             }
 
             if (isRegexValidation(password, nickname)) {
-                throw new Error  ('패스워드에 닉네임이 포함되어 있습니다.')
+                throw new Error  ('패스워드에 닉네임이 포함되어 있습니다.');
             }
 
             const salt = await bcrypt.genSalt(10);
@@ -38,29 +38,29 @@ class UserServices {
         const hashedPassword = await bcrypt.compare(password, user.password);
 
         if (!user || !hashedPassword) {
-            return {message: "아이디 또는 패스워드를 확인해주세요."}
+            throw new Error ( "아이디 또는 패스워드를 확인해주세요." );
         }
-        let token = jwt.sign({userId: user.userId}, "mySecretKey");
+        let token = jwt.sign({userId: user.userId, id: user.id}, "mySecretKey");
         return {message: "로그인 성공", token};
     }
 
     //비밀번호 분실시 아이디, 이메일로 회원 확인하여 비밀번호 변경
     changePassword = async (id, password, confirm, email, userId) => {
         if (!id) {
-            return "아이디를 입력해주세요"
+            throw new Error ("아이디를 입력해주세요");
         }
         if (!email) {
-            return "이메일을 입력해주세요"
+            throw new Error ("이메일을 입력해주세요");
         }
         const findUserByUserId = await this.userRepository.findUserByUserId(userId);
         if (id !== findUserByUserId.id || email !== findUserByUserId.email) {
-            return "아이디 또는 이메일을 확인해주세요"
+            throw new Error ("아이디 또는 이메일을 확인해주세요");
         }
         if (password !== confirm) {
-            return "패스워드와 패스워드 확인란이 달라요"
+            throw new Error ("패스워드와 패스워드 확인란이 달라요");
         }
         await this.userRepository.changePassword(id, email, password);
-        return "비밀번호 변경이 완료되었습니다"
+        return ("비밀번호 변경이 완료되었습니다");
     }
 
     //관리자 권한 임명

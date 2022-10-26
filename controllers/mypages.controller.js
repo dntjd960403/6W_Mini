@@ -82,14 +82,6 @@ class MypagesController {
 
     res.status(200).json({ message: '버린거 확인완료링~!' });
   };
-  // 메인페이지에서 박스누르면 포인트 차감
-  putPointMypages = async (req, res, next) => {
-    const { userId } = res.locals.user;
-
-    await this.mypagesService.putPointMypages(userId);
-    res.status(200).json({ data: '포인트 차감됨' });
-  };
-
   //id로 관리자 여부 조회
   checkAdmin = async (req, res, next) => {
     try {

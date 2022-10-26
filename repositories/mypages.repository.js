@@ -24,16 +24,15 @@ class MypagesRepository {
     };
     //마이페이지에서 내가 구입한 상품들 조회
     getRandoms = async (userId) => {
-        const randoms = await Boxes.findAll({where: {userId}});
+        const randoms = await Boxes.findAll({ where: { userId } });
         const randomBox = [];
         for (let i = 0; i < randoms.length; i++) {
-            randomBox.push({
-                userId: randoms[i].dataValues.userId,
-                goodsId: randoms[i].dataValues.goodsId,
-            });
+          const goodsId = randoms[i].dataValues.goodsId;
+          const randomItem = await Goods.findOne({ where: { goodsId } });
+          randomBox.push({ randomItem });
         }
         return randomBox;
-    };
+      };
     // 뽑힌 숫자 상품을 박스에 넣어주기
     createRandoms = async (userId, goodsId) => {
         const createGoods = await Boxes.create({userId, goodsId});

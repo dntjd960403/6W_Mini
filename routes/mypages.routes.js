@@ -11,7 +11,6 @@ router.get('/goods/:userId', authMiddleware, mypagesController.getRandoms);
 router.get('/main/:userId', authMiddleware, mypagesController.getMain);
 router.post('/', authMiddleware, mypagesController.createRandoms);
 router.put('/:userId/edit', authMiddleware, mypagesController.editPersonalData);
-router.put('/point', authMiddleware, mypagesController.putPointMypages);
 router.put('/plusPoint', authMiddleware, mypagesController.plusPoint);
 
 module.exports = router;

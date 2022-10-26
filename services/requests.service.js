@@ -3,7 +3,7 @@ const RequestsRepository = require("../repositories/requests.repository")
 
 class RequestsService {
     requestsRepository = new RequestsRepository();
-  
+  // 상품요청 전체 글보기
   findAllRequest = async () => {
 
       const allRequests = await this.requestsRepository.findAllRequest();
@@ -15,26 +15,25 @@ class RequestsService {
 
       return allRequests.map(request => {
         return {
-          userId: request.userId,
-          request: request.request,
-          createdAt: request.createdAt
+          nickname: request.nickname,
+          request: request.request
         }
       });
     }
-  
-    createRequests = async (userId,request) => {
+  // 상품요청 생성하기
+    createRequests = async (nickname,request) => {
 
-      const createRequestsData = await this.requestsRepository.createRequests(userId,request);
+      const createRequestsData = await this.requestsRepository.createRequests(nickname,request);
 
       return {
         requestId: createRequestsData.null,
-        userId: createRequestsData.userId,
+        nickname: createRequestsData.nickname,
         request: createRequestsData.request,
         createdAt: createRequestsData.createdAt,
         updatedAt: createRequestsData.updatedAt
       };
     }
-
+// 상품요청 수정하기
     updateRequests = async (requestId,request) => {
 
       await this.requestsRepository.updateRequests(requestId,request);
@@ -48,7 +47,7 @@ class RequestsService {
         updatedAt: updateRequestsData.updatedAt
       };
     }
-
+// 상품요청한거 삭제하기
     deleteRequests = async (requestId) => {
       await this.requestsRepository.deleteRequests(requestId);
       const deleteReviewsData = await this.requestsRepository.RequestsById(requestId);

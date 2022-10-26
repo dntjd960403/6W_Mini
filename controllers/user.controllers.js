@@ -26,7 +26,7 @@ class UserController {
             const registerUserResult = await this.userService.signup(id, nickname, password, confirm, email, address);
             res.status(200).json({message: registerUserResult.message, ok: registerUserResult.ok})
         } catch (error) {
-            res.status(412).json({errorMessage: error.message, ok : "fasle"});
+            res.status(412).json({errorMessage: error.message, ok : "false"});
         }
     };
 

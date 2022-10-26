@@ -20,6 +20,7 @@ class MypagesRepository {
   getMain = async (userId) => {
     const mypage = await Users.findOne({ where: { userId } });
 
+<<<<<<< HEAD
     return mypage;
   };
   //마이페이지에서 내가 구입한 상품들 조회
@@ -30,6 +31,54 @@ class MypagesRepository {
       const goodsId = randoms[i].dataValues.goodsId;
       const randomItem = await Goods.findOne({ where: { goodsId } });
       randomBox.push({ randomItem });
+=======
+        return mypage;
+    };
+    //마이페이지에서 내가 구입한 상품들 조회
+    getRandoms = async (userId) => {
+        const randoms = await Boxes.findAll({ where: { userId } });
+        const randomBox = [];
+        for (let i = 0; i < randoms.length; i++) {
+          const goodsId = randoms[i].dataValues.goodsId;
+          const randomItem = await Goods.findOne({ where: { goodsId } });
+          randomBox.push({ randomItem });
+        }
+        return randomBox;
+      };
+    // 뽑힌 숫자 상품을 박스에 넣어주기
+    createRandoms = async (userId, goodsId) => {
+        const createGoods = await Boxes.create({userId, goodsId});
+        console.log(createGoods)
+
+        return createGoods;
+    };
+    //전체 상품 갯수를 세서 랜덤으로 숫자 뽑기
+    findAllGoods = async (goodsId) => {
+        const findAllgoods = await Goods.findAll({});
+
+        return findAllgoods.length;
+    };
+    //마이페이지 내에 상품 버리기
+    deleteGoods = async (boxId) => {
+        const deleteG = await Boxes.destroy({where: {boxId}});
+
+        return deleteG;
+    };
+    //상품구입시 포인트 차감
+    putPointMypages = async (userId) => {
+        await Users.decrement({point: 5000}, {where: {userId}});
+
+        return;
+    };
+
+    //id로 관리자 여부 조회
+    findUserByUserId = async (id) => {
+        const findUserByUserIdData = await Users.findOne({where: {id}});
+        //console.log(findUserByUserIdData)
+        const whetherAdminOrNot = findUserByUserIdData['dataValues'].admin;
+        //console.log("admin값", findUserByUserIdData['dataValues'].admin)
+        return whetherAdminOrNot;
+>>>>>>> 54a5bb77852fbf23b11d9d4c4dd0f06527632205
     }
     return randomBox;
   };
@@ -38,6 +87,7 @@ class MypagesRepository {
     const createGoods = await Boxes.create({ userId, goodsId });
     console.log(createGoods);
 
+<<<<<<< HEAD
     return createGoods;
   };
   //전체 상품 갯수를 세서 랜덤으로 숫자 뽑기
@@ -73,6 +123,12 @@ class MypagesRepository {
     await Users.increment({ point: point }, { where: { userId } });
     return;
   };
+=======
+    //포인트 적립(관리자 권한 필요)
+    plusPoint = async (point, userId) => {
+        return await Users.increment({point: point}, {where: {userId}});
+    }
+>>>>>>> 54a5bb77852fbf23b11d9d4c4dd0f06527632205
 }
 
 module.exports = MypagesRepository;

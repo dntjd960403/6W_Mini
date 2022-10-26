@@ -85,12 +85,6 @@ class MypagesService {
 
         return goods;
     }
-    //박스 구입시 포인트 차감
-    putPointMypages = async (userId) => {
-        const updatePost = await this.mypagesRepository.putPointMypages(userId);
-
-        return;
-    };
 
     //id로 관리자 여부 조회
     checkAdmin = async (id) => {
@@ -104,9 +98,14 @@ class MypagesService {
     }
 
     //포인트 적립(관리자 권한 필요)
-    plusPoint = async (id, point, userId) => {
-        const plusPointResult = await this.mypagesRepository.plusPoint(id, point, userId);
-        return;
+    plusPoint = async (point, userId) => {
+        const plusPointResult = await this.mypagesRepository.plusPoint(point, userId);
+        if (plusPointResult[0][1])
+        {
+            return;
+        } else {
+            throw new Error("없는 유저");
+        }
     };
 }
 

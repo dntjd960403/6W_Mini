@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
   const { authorization } = req.headers;
    //console.log("authorization", authorization)
   const [authType, authToken] = (authorization || '').split(' ');
-  //console.log("authToken", authToken)
+  // console.log(authType, authToken)
 
   if (!authToken || authType !== 'Bearer') {
     res.status(401).send({

@@ -39,7 +39,7 @@ class UserController {
             res.status(200).json(loginResult);
         } catch (error) {
             console.log(`${error.message}`);
-            res.status(400).send({errorMessage: error.message, ok : "2"});
+            res.status(400).send({errorMessage: error.message});
         }
     };
 

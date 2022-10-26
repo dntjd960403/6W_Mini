@@ -69,9 +69,8 @@ class MypagesRepository {
     }
 
     //포인트 적립(관리자 권한 필요)
-    plusPoint = async (id, point, userId) => {
-        await Users.increment({point: point}, {where: {userId}});
-        return;
+    plusPoint = async (point, userId) => {
+        return await Users.increment({point: point}, {where: {userId}});
     }
 }
 

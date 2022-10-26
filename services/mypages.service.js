@@ -98,9 +98,14 @@ class MypagesService {
     }
 
     //포인트 적립(관리자 권한 필요)
-    plusPoint = async (id, point, userId) => {
-        const plusPointResult = await this.mypagesRepository.plusPoint(id, point, userId);
-        return;
+    plusPoint = async (point, userId) => {
+        const plusPointResult = await this.mypagesRepository.plusPoint(point, userId);
+        if (plusPointResult[0][1])
+        {
+            return;
+        } else {
+            throw new Error("없는 유저");
+        }
     };
 }
 

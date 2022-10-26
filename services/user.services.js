@@ -38,11 +38,16 @@ class UserServices {
     //로그인
     login = async (id, password) => {
         const user = await this.userRepository.findUserById(id);
-        const hashedPassword = await bcrypt.compare(password, user.password);
 
-        if (!user || !hashedPassword) {
+        if (!user) {
             throw new Error ( "아이디 또는 패스워드를 확인해주세요." );
         }
+
+        const hashedPassword = await bcrypt.compare(password, user.password);
+        if (!hashedPassword) {
+            throw new Error ( "아이디 또는 패스워드를 확인해주세요." );
+        }
+
         let token = jwt.sign({userId: user.userId, id: user.id}, "mySecretKey");
         return {message: "로그인 성공", token};
     }

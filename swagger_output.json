@@ -5,7 +5,7 @@
     "title": "My API",
     "description": "swagger 만들기"
   },
-  "host": "ws-study.shop",
+  "host": "ws-study.shop:3000",
   "basePath": "/",
   "tags": [
     {

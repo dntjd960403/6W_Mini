@@ -10,15 +10,12 @@ class MypagesService {
     mypagesRepository = new MypagesRepository();
     //마이페이지 개인정보수정
     editPersonalData = async (nickname, password, confirm, email, address, userId) => {
-        console.log("w진입")
         if (password !== confirm) {
             return '패스워드와 패스워드 확인란이 달라요';
         }
         const salt = await bcrypt.genSalt(10);
         const encryptedPW = bcrypt.hashSync(password, salt);
-             console.log(encryptedPW)
         password = encryptedPW;
-              console.log(password)
         await this.mypagesRepository.editPersonalData(nickname, password, email, address, userId);
         return '개인정보 변경이 완료되었습니다';
     };

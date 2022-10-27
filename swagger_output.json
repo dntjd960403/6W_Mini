@@ -5,7 +5,7 @@
     "title": "My API",
     "description": "swagger 만들기"
   },
-  "host": "ws-study.shop:3000",
+  "host": "ws-study.shop",
   "basePath": "/",
   "tags": [
     {
@@ -27,7 +27,7 @@
       "name": "상품 요청 페이지 API"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["http", "https"],
   "securityDefinitions": {
     "apiKeyAuth": {
       "type": "apiKey",

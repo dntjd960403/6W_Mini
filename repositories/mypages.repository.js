@@ -25,12 +25,14 @@ class MypagesRepository {
 
   //마이페이지에서 내가 구입한 상품들 조회
   getRandoms = async (userId) => {
-    const randoms = await Boxes.findAll({ where: { userId } });
+    const randoms = await Boxes.findAll({ where: { userId }/*,  order: [['boxId', 'DESC']] */});
     const randomBox = [];
     for (let i = 0; i < randoms.length; i++) {
       const goodsId = randoms[i].dataValues.goodsId;
       const boxId = randoms[i].dataValues.boxId;
-      const randomItem = await Goods.findOne({ where: { goodsId } });
+      const randomItem = await Goods.findOne({
+        where: { goodsId }
+      });
       randomBox.push({ randomItem, boxId: boxId });
     }
     return randomBox;

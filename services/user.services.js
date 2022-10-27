@@ -53,20 +53,21 @@ class UserServices {
     }
 
     //비밀번호 분실시 아이디, 이메일로 회원 확인하여 비밀번호 변경
-    changePassword = async (id, password, confirm, email, userId) => {
-        if (!id) {
-            throw new Error ("아이디를 입력해주세요");
-        }
-        if (!email) {
-            throw new Error ("이메일을 입력해주세요");
-        }
-        const findUserByUserId = await this.userRepository.findUserByUserId(userId);
+    changePassword = async (id, password, confirm, email) => {
+        const findUserByUserId = await this.userRepository.findUserByUserId(id, email);
         if (id !== findUserByUserId.id || email !== findUserByUserId.email) {
             throw new Error ("아이디 또는 이메일을 확인해주세요");
         }
         if (password !== confirm) {
             throw new Error ("패스워드와 패스워드 확인란이 달라요");
         }
+
+        const salt = await bcrypt.genSalt(10);
+        const encryptedPW = bcrypt.hashSync(password, salt);
+        console.log(encryptedPW)
+        password = encryptedPW;
+        console.log(password)
+
         await this.userRepository.changePassword(id, email, password);
         return ("비밀번호 변경이 완료되었습니다");
     }

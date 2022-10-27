@@ -1,12 +1,15 @@
 const MypagesService = require('../services/mypages.service');
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 class MypagesController {
     mypagesService = new MypagesService();
     //마이페이지 개인정보수정
     editPersonalData = async (req, res, next) => {
         try {
-            const {nickname, password, confirm, email, address} = req.body;
+            let {nickname, password, confirm, email, address} = req.body;
             const {userId} = res.locals.user;
+
             const editPersonalResult = await this.mypagesService.editPersonalData(
                 nickname,
                 password,

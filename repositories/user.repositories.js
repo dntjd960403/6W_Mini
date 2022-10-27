@@ -8,8 +8,8 @@ class UserRepository {
   };
 
   //유저아이디(PK)로 회원 조회
-  findUserByUserId = async (userId) => {
-    const user = await Users.findOne({ where: { userId } });
+  findUserByUserId = async (id, email) => {
+    const user = await Users.findOne({ where: { id, email } });
     console.log(user);
     return user;
   };

@@ -47,8 +47,13 @@ class UserController {
     changePassword = async (req, res, next) => {
         try {
             const {id, password, confirm, email} = req.body;
-            const {userId} = res.locals.user;
-            const changePasswordResult = await this.userService.changePassword(id, password, confirm, email, userId);
+            if (!id) {
+                throw new Error ("아이디를 입력해주세요");
+            }
+            if (!email) {
+                throw new Error ("이메일을 입력해주세요");
+            }
+            const changePasswordResult = await this.userService.changePassword(id, password, confirm, email);
             res.status(200).json({message: changePasswordResult});
         } catch (error) {
             console.log(`${error.message}`);

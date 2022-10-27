@@ -61,8 +61,11 @@ class MypagesService {
       try{
         const randoms = await this.mypagesRepository.getRandoms(userId, goodsId);
 
-        return randoms;
-
+        randoms.sort((a, b) => 
+            b.boxId - a.boxId
+          )
+      
+          return randoms;
       } catch (error) {
         throw new Error ("getRandoms에서 권한이 없습니다")
       }
